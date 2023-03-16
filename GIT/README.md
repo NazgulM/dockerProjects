@@ -56,28 +56,37 @@ This command discards all history and goes back to the specified commit.
 
 ```
 git status
-``
+```
+
 This command lists all the files that have to be committed.
+
 
 ```
 git rm [file]
 ```
+
 This command deletes the file from your working directory and stages the deletion.
 
 ```
 git log
-git log -follow [file
+git log -follow [file]
+
 ```
 This command is used to list the version history for the current branch.
 This command lists version history for a file, including the renaming of files also.
 
+
 ```
 git show
+
 ```
+
 This command shows the metadata and content changes of the specified commit.
+
 
 ```
 git tag [commitID]
+
 ```
 This command is used to give tags to the specified commit.
 
@@ -85,27 +94,35 @@ This command is used to give tags to the specified commit.
 git branch
 git branch [branch name]
 git branch -d [branch name]
+
 ```
 This command lists all the local branches in the current repository.
 This command creates a new branch.
 This command deletes the feature branch.
 
+
 ```
 git checkout [branch name]
 git checkout -b [branch name]
+
 ```
+
 This command is used to switch from one branch to another.
 This command creates a new branch and also switches to it.
 
 ```
 git merge
 git merge [branch name]
+
 ```
+
 This command merges the specified branch’s history into the current branch.
 
 ```
 git remote
+
 ```
+
 Usage: git remote add [variable name] [Remote Server Link]
 
 This command is used to connect your local repository to the remote server.
@@ -115,6 +132,7 @@ git push
 git push [variable name] [[branch name]
 git push -all [variable name]
 git push [variable name] :[branch name]
+
 ```
 
 This command sends the committed changes of master branch to your remote repository.
