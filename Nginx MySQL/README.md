@@ -111,3 +111,5 @@ Copy your IPv4 address from details section of your ec2 instance and add the par
 In case of MYSQL, you need to use command "docker run -it --name <name> -e MYSQL_ROOT_PASSWORD=<password> mysql:latest"  to make container using its image.
 After this, you need to give "docker exec -it <container id> bash" to enter in bash of the MYSQL container.
 Lastly you need to give "mysql -u root -p" to enter username and password to enter MYSQL.
+
+![nginx](nginx.png)
