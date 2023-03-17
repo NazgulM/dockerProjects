@@ -1,4 +1,4 @@
-# Create image and run 
+# Create image and run
 
 ```
 docker run -d --name jenkins -p 81:8080 jenkins:2.60.3
@@ -16,6 +16,8 @@ CONTAINER ID   IMAGE            COMMAND                  CREATED              ST
 
 ```
 
+![jenkins](j.png)
+
 If use command for stop
 
 ```
@@ -23,5 +25,3 @@ docker stop container_id
 ```
 
 My application won't work.
-
-
