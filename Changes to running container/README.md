@@ -30,3 +30,19 @@ Change the color of background only in the index.html
 ![text](white.png)
 
 ![pink](pink.png)
+
+Users as many as you want can attach to this image.
+
+```
+docker pull nurbakar/application:1.0.0
+```
+
+Users can use this command and pull this image to localhost, and work, test with this image.
+We are creating the image, and someone can pull this image. 
+
+Clean up the system 
+
+```
+docker rm -f containerId
+```
+
