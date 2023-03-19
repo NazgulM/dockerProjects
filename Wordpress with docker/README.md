@@ -296,31 +296,26 @@ CMD ["/usr/sbin/httpd","-D","FOREGROUND"]
 docker build -t nurbakar/application:0.0.13 .
 docker images
 
-```
-
 nurbakar/application   0.0.13    57e29956b7e0   28 seconds ago      537MB
 nurbakar/application   0.0.12    7860873eacec   3 minutes ago       504MB
-
 ```
 
 Let's detach the container
 
 ```
-
 docker run -d --name web-app -p 80:80 nurbakar/application:0.0.13
 docker ps
-
-# Should have the app running, that successfully running the Apache server
-
+#Should have the app running, that successfully running the Apache server
 ```
+
 
 ![web](web.png)
 
 11; let's create the application simple
 Create index.html with simple web app content copy index.html
 
-```
 
+```
 FROM centos:7
 RUN yum install httpd -y && yum install git -y && yum install wget -y && yum install vim -y
 LABEL version="0.0.3"
