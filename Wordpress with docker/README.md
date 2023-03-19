@@ -62,7 +62,7 @@ FROM centos:7
 RUN yum install git -y
 ```
 
-It can install second layer 2/2, each images has layers. 
+It can install second layer 2/2, each images has layers.
 
 If we pushing to my repo in Docker:
 
@@ -70,10 +70,10 @@ If we pushing to my repo in Docker:
 docker push nurbakar/application:0.0.2
 ```
 
-It is gonna be pushing my second layer, because first layer is already exists. 
+It is gonna be pushing my second layer, because first layer is already exists.
 
 ```
-#Giving lable of our Layer
+#Giving label of our Layer
 LABEL version="0.0.3"
 ```
 
@@ -85,6 +85,7 @@ nurbakar/application   0.0.2     19eb3b7d3b62   6 minutes ago   461MB
 nurbakar/application   0.0.3     622000bc0c0a   6 minutes ago   461MB
 nurbakar/application   0.0.1     ba0adccef15b   18 months ago   204MB
 ```
+
 Adding Maintainer
 
 ```
@@ -97,7 +98,7 @@ MAINTAINER owner=nazgul
 One directory only have one Dockerfile.
 Can have as many RUNS, as we want.
 
-6; Install wget 
+6; Install wget
 
 ```
 FROM centos:7
@@ -106,6 +107,7 @@ LABEL version="0.0.3"
 MAINTAINER owner=nazgul
 RUN yum install wget -y
 ```
+
 After installing the wget, my layers are increasing the size:
 
 ```
@@ -117,7 +119,6 @@ nurbakar/application   0.0.4     9beaba84eda8   13 minutes ago   461MB
 nurbakar/application   0.0.1     ba0adccef15b   18 months ago    204MB
 ```
 
-
 Each additional layer makes our image bigger, make sure to reduce the number of layers, when we reduce the number of layers, image would way less
 
 So for purpose of reducing layers we have to edit the Dockerfile:
@@ -128,6 +129,7 @@ RUN yum install git -y && yum install wget -y
 LABEL version="0.0.3"
 MAINTAINER owner=nazgul
 ```
+
 How do make sure you have a small image size, we need to reduce number of layers, put several commands in one line, because each layer add up additional size.
 
 Add environment variables
@@ -142,7 +144,7 @@ ENV NAME=alex \
     OCCUPATION=student 
 ```
 
-Here backslash is only continuation of the command. Adding env variables, doesn't add additional size to my image. 
+Here backslash is only continuation of the command. Adding env variables, doesn't add additional size to my image.
 
 For testing if git or wget has been installed:
 
@@ -161,6 +163,7 @@ ENV NAME=alex \
     AGE=21 \
     OCCUPATION=student 
 ```
+
 After installing, if run docker images, I would see:
 
 ```
@@ -184,6 +187,7 @@ ENV NAME=alex \
     OCCUPATION=student 
 COPY file /tmp
 ```
+
 ```
 docker build -t nurbakar/application:0.0.9 . 
 ```
@@ -196,9 +200,10 @@ Test if my file is copied to /tmp
 hello
 ```
 
-Why COPY can be use, when working in company developers can write the code, you can have the Python app, NodeJS, React, you have to copy the code to the container itself, your container won't be running without the code. 
+Why COPY can be use, when working in company developers can write the code, you can have the Python app, NodeJS, React, you have to copy the code to the container itself, your container won't be running without the code.
 
 For next purpose I've created the couple of files and folders, my goal is to copy everything on my directory to the /tmp :
+
 ```
 FROM centos:7
 RUN yum install git -y && yum install wget -y && yum install vim -y
@@ -247,7 +252,7 @@ ADD https://wordpress.org/latest.zip /tmp
 
 ```
 
-ADD almost the same as copy, ADD allows us to download from internet zip files, like wget. Download it will move it to /tmp folder, without location it will fail. 
+ADD almost the same as copy, ADD allows us to download from internet zip files, like wget. Download it will move it to /tmp folder, without location it will fail.
 
 ```
 docker build -t nurbakar/application:0.0.11 .
@@ -284,7 +289,7 @@ EXPOSE 80
 CMD ["/usr/sbin/httpd","-D","FOREGROUND"]
 ```
 
-/usr/sbin/httpd" - basically meaning systemctl start httpd, goes to this location and start the daemon. 
+/usr/sbin/httpd" - basically meaning systemctl start httpd, goes to this location and start the daemon.
 
 ```
 
@@ -292,22 +297,75 @@ docker build -t nurbakar/application:0.0.13 .
 docker images
 
 ```
+
 nurbakar/application   0.0.13    57e29956b7e0   28 seconds ago      537MB
 nurbakar/application   0.0.12    7860873eacec   3 minutes ago       504MB
+
 ```
 
 Let's detach the container
 
 ```
+
 docker run -d --name web-app -p 80:80 nurbakar/application:0.0.13
 docker ps
-#Should have the app running, that successfully running the Apache server
+
+# Should have the app running, that successfully running the Apache server
+
 ```
 
 ![web](web.png)
 
+11; let's create the application simple
+Create index.html with simple web app content copy index.html
 
+```
 
+FROM centos:7
+RUN yum install httpd -y && yum install git -y && yum install wget -y && yum install vim -y
+LABEL version="0.0.3"
+MAINTAINER owner=adilet
+ENV NAME=alex \
+    AGE=21 \
+    OCCUPATION=student
+COPY . /tmp
+COPY index.html /var/www/html/
+ADD <https://wordpress.org/latest.zip> /tmp
+EXPOSE 80
+CMD ["/usr/sbin/httpd","-D","FOREGROUND"]
 
+```
 
+```
 
+docker build -t nurbakar/application:0.0.14 .
+[root@docker ~]# docker images
+REPOSITORY             TAG       IMAGE ID       CREATED             SIZE
+nurbakar/application   0.0.14    b681abf91329   16 seconds ago      537MB
+nurbakar/application   0.0.13    57e29956b7e0   24 minutes ago      537MB
+docker ps
+docker ps
+CONTAINER ID   IMAGE                         COMMAND                  CREATED          STATUS          PORTS                               NAMES
+c794d9011aa2   nurbakar/application:0.0.13   "/usr/sbin/httpd -D …"   23 minutes ago   Up 23 minutes   0.0.0.0:80->80/tcp, :::80->80/tcp   web-app
+
+```
+Now I have the running container, i have to remove the all running containers, not conflict containers.
+
+```
+
+docker rm -f c794d9011aa2
+
+# For forcefully deleting all containers, running and exited containers
+
+docker container prune --force
+
+```
+
+```
+
+docker build -t nurbakar/application:0.0.16 .
+docker run -d --name web -p 80:80 nurbakar/application:0.0.16
+
+```
+
+![web2](web2.png)
