@@ -308,12 +308,10 @@ docker ps
 #Should have the app running, that successfully running the Apache server
 ```
 
-
 ![web](web.png)
 
 11; let's create the application simple
 Create index.html with simple web app content copy index.html
-
 
 ```
 FROM centos:7
@@ -344,6 +342,7 @@ CONTAINER ID   IMAGE                         COMMAND                  CREATED   
 c794d9011aa2   nurbakar/application:0.0.13   "/usr/sbin/httpd -D …"   23 minutes ago   Up 23 minutes   0.0.0.0:80->80/tcp, :::80->80/tcp   web-app
 
 ```
+
 Now I have the running container, i have to remove the all running containers, not conflict containers.
 
 ```
