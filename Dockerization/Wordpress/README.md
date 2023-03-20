@@ -29,4 +29,3 @@ Next there is a COPY instruction. Not unlike the cp command, this COPY looks for
 
 One final point: I created the php.ini file by going into the WordPress container I customized in the previous article, copied its contents, and saved it locally as php.ini. This way, I know that it is the php.ini file that ships with the WordPress image, but that includes my changes to parameters like upload_max_filesize.
 
-3; If i

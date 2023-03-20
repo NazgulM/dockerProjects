@@ -1,25 +1,18 @@
-# WordPress Dockerfile: Create container from official WordPress image, basic customizations.
-# docker build -t wordpress_local:wp_custom_1.0 .
+# Set the base image
+FROM centos:7
 
-FROM wordpress:latest
+# Pre-reqs
+RUN yum clean all && \
+yum -y update && \
+yum -y install httpd mod_rewrite mod_ssl mod_env php php-common php-cli php-mysql mysql-server unzip wget  && \
+rm -fr /var/cache/*
 
-# APT Update/Upgrade, then install packages we need
-RUN apt update && \
-    apt upgrade -y && \
-    apt autoremove && \
-    apt install -y \
-    vim \
-    wget \
-    mariadb-client
+# Application install
+RUN wget -P /var/www/html https://wordpress.org/latest.zip && \
+unzip /var/www/html/latest.zip -d /var/www/html/ && \
+rm -fr /var/www/html/latest.zip
 
-# Replace php.ini
-COPY php.ini /usr/local/etc/php
+RUN cp /var/www/html/wordpress/wp-config-sample.php /var/www/html/wordpress/wp-config.php
 
-# Install WP-CLI
-RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
-    php wp-cli.phar --info&& \
-    chmod +x wp-cli.phar && \
-    mv wp-cli.phar /usr/local/bin/wp && \
-    # Remove old php.ini files (wihtout creating new image)
-    rm /usr/local/etc/php/php.ini-development && \
-    rm /usr/local/etc/php/php.ini-production
+# Expose necessary ports
+EXPOSE 80
