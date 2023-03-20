@@ -351,8 +351,8 @@ docker rm -f c794d9011aa2
 
 # For forcefully deleting all containers, running and exited containers
 
-docker container prune --force
 
+docker container prune --force
 ```
 
 ```

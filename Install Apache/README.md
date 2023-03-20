@@ -103,5 +103,3 @@ sudo docker port staticsite01
 curl 127.0.0.1:80
 
 ```
-
-

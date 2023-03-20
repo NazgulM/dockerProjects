@@ -5,12 +5,13 @@ sudo yum update
 sudo yum install git
 ```
 
-Check git version 
+Check git version
 
-``` 
+```
 git version
 
 ```
+
 git commit used to start new repo
 
 ```
@@ -29,6 +30,7 @@ git stash pop
 git stash list
 git stash drop
 ```
+
 Use for save the changes without committing them
 This command restores the most recently stashed files.
 This command lists all stashed changesets.
@@ -37,11 +39,13 @@ This command discards the most recently stashed changeset.
 ```
 git diff
 ```
+
 This command shows the file differences which are not yet staged.
 
 ```
 git diff --staged
 ```
+
 This command shows the differences between the files in the staging area and the latest version present.
 
 ```
@@ -60,7 +64,6 @@ git status
 
 This command lists all the files that have to be committed.
 
-
 ```
 git rm [file]
 ```
@@ -72,9 +75,9 @@ git log
 git log -follow [file]
 
 ```
+
 This command is used to list the version history for the current branch.
 This command lists version history for a file, including the renaming of files also.
-
 
 ```
 git show
@@ -83,11 +86,11 @@ git show
 
 This command shows the metadata and content changes of the specified commit.
 
-
 ```
 git tag [commitID]
 
 ```
+
 This command is used to give tags to the specified commit.
 
 ```
@@ -96,10 +99,10 @@ git branch [branch name]
 git branch -d [branch name]
 
 ```
+
 This command lists all the local branches in the current repository.
 This command creates a new branch.
 This command deletes the feature branch.
-
 
 ```
 git checkout [branch name]
@@ -139,4 +142,3 @@ This command sends the committed changes of master branch to your remote reposit
 This command sends the branch commits to your remote repository.
 This command pushes all branches to your remote repository.
 This command deletes a branch on your remote repository.
-

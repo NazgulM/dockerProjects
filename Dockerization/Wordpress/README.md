@@ -29,3 +29,21 @@ Next there is a COPY instruction. Not unlike the cp command, this COPY looks for
 
 One final point: I created the php.ini file by going into the WordPress container I customized in the previous article, copied its contents, and saved it locally as php.ini. This way, I know that it is the php.ini file that ships with the WordPress image, but that includes my changes to parameters like upload_max_filesize.
 
+```
+FROM centos:7
+RUN yum install -y httpd \
+    && yum install -y wget \ 
+    && yum install -y unzip \
+    && yum install -y https://rpms.remirepo.net/enterprise/remi-release-7.rpm \
+    && yum-config-manager --enable remi-php74 \
+    && yum install -y epel-release \
+    && yum install -y php \
+    && yum install -y php-mysql
+ADD https://wordpress.org/latest.tar.gz .
+RUN tar -xf latest.tar.gz -C /var/www/html/ && \
+    mv /var/www/html/wordpress/* /var/www/html/ && \
+    chown -R apache:apache /var/www/html/
+CMD ["/usr/sbin/httpd","-D","FOREGROUND"]
+EXPOSE 80
+```
+
